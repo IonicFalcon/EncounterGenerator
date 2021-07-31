@@ -11,7 +11,7 @@
     <div class="root">
         <h1>Encounter Generator</h1>
 
-        <form action="">
+        <form action="" onsubmit="return false">
             <p class="formInput">
                 <input type="number" name="partyVis" id="partyVis" min="1" value="1">
                 <label for="partyVis">Party Visability</label>
@@ -24,16 +24,17 @@
     
             <p class="formInput">
                 <select name="biome" id="biome">
-                    <option value="grass">Grassland</option>
-                    <option value="desert">Desert</option>
-                    <option value="forest">Forest</option>
+                    
                 </select>
                 <label for="biome">Biome</label>
             </p>
     
-            <button type="submit">Generate</button>
+            <button id="generate">Generate</button>
     
         </form>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.5.0/sql-wasm.js"></script>
+    <script src="scripts/index.js" type="module"></script>
 </body>
 </html>
