@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encounter Generator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/0b7408c7cc.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="root">
         <h1>Encounter Generator</h1>
 
-        <form action="" onsubmit="return false">
+        <form onsubmit="return false" class="" id="generateForm">
             <p class="formInput">
                 <input type="number" name="partyVis" id="partyVis" min="1" value="1">
                 <label for="partyVis">Party Visability</label>
@@ -29,12 +30,55 @@
                 <label for="biome">Biome</label>
             </p>
     
-            <button id="generate">Generate</button>
-    
+            <strong id="output">A level 5 Kobald appears!</strong>  
+
+            <div class="buttonGroup">
+                <button id="generate">Generate</button>
+                <button id="editData">Edit Data Source</button>
+            </div>
         </form>
+
+        <div class="hidden" id="dataSource">
+            <div class="editData">
+                <form id="biomes" class="columnSelect">
+                    <h2>Biomes</h2>
+                    <ul>
+                        
+                    </ul>
+
+                    <div class="formButtons buttonGroup">
+                        <button id="editBiome">Edit</button>
+                        <button id="deleteBiome">Delete</button>
+                    </div>
+                </form>
+
+                <div class="arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <form id="biomeMonsters" class="columnSelect">
+                    <h2>Possible Encounters</h2>
+                    <ul>
+                    </ul>
+
+                    <div class="formButtons buttonGroup">
+                        <button id="editMonster">Edit</button>
+                        <button id="deleteMonster">Delete</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="buttonGroup">
+                <label for="dataUpload">Upload Database</label>
+                <input type="file" name="dataUpload" id="dataUpload">
+                <button id="download">Download Database</button>
+                <button id="back">Back</button>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.5.0/sql-wasm.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="scripts/index.js" type="module"></script>
 </body>
 </html>
