@@ -14,7 +14,7 @@ body{
 }
 
 .hidden{
-    display: none;
+    display: none !important;
 }
 
 h1{
@@ -157,4 +157,24 @@ button, label[for="dataUpload"]{
 
 #dataSource .buttonGroup{
     margin-top: 1em;
+}
+
+.modal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: scroll;
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modalBody{
+    background-color: white;
+    padding: 3em;
+    border-radius: 2em;
 }

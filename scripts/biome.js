@@ -13,4 +13,8 @@ export default class Biome{
 
         return biomes;
     }
+
+    static AddBiome(DB, biomeName){
+        DB.run("INSERT INTO Biomes (Name) VALUES (?)", [biomeName]);
+    }
 }
