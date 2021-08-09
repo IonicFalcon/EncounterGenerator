@@ -21,4 +21,8 @@ export default class Biome{
     static EditBiome(DB, biomeID, biomeName){
         DB.run("UPDATE Biomes SET Name = ? WHERE BiomeID = ?", [biomeName, biomeID]);
     }
+
+    static DeleteBiome(DB, biomeID){
+        DB.run("DELETE FROM Biomes WHERE BiomeID = ?", [biomeID]);
+    }
 }

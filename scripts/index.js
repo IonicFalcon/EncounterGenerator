@@ -116,6 +116,26 @@ $("#editBiomeButton").click(event => {
     }
 })
 
+$("#deleteBiomeButton").click(event =>{
+    event.preventDefault();
+
+    const biomeSelect = document.querySelectorAll("input[name='biome']");
+    for(const biome of biomeSelect){
+        if(biome.checked){
+            const deleteModal = document.querySelector("#deleteBiome");
+
+            deleteModal.classList.remove("hidden");
+            deleteModal.querySelector(".message").innerHTML = "Are you sure you want to delete this biome?";
+
+            const biomeID = document.querySelector("#biomeID_delete");
+            biomeID.value = biome.value;
+
+            break;
+
+        }
+    }
+})
+
 $("#back").click(() =>{
     document.querySelector("#generateForm").classList.toggle("hidden");
     document.querySelector("#dataSource").classList.toggle("hidden");
@@ -158,6 +178,18 @@ $("#biomeEdit").click(() =>{
 
     message.innerHTML = "Biome was successfully updated";
     resetSelectColumn(true);
+})
+
+$("#biomeDelete").click(() =>{
+    if(confirm("Really delete biome?")){
+        let biomeID = document.querySelector("#biomeID_delete").value;
+        let message = document.querySelector("#deleteBiome .message");
+
+        Biome.DeleteBiome(window.DB, biomeID);
+
+        message.innerHTML = "Biome was successfully deleted";
+        resetSelectColumn(true);
+    }
 })
 
 
