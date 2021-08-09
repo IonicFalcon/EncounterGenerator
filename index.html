@@ -47,8 +47,8 @@
                     </ul>
 
                     <div class="formButtons buttonGroup">
-                        <button id="editBiome">Edit</button>
-                        <button id="deleteBiome">Delete</button>
+                        <button id="editBiomeButton">Edit</button>
+                        <button id="deleteBiomeButton">Delete</button>
                     </div>
                 </form>
 
@@ -87,6 +87,23 @@
 
                 <div class="formButtons buttonGroup">
                     <button id="biomeAdd">Add Biome</button>
+                    <button class="modalClose">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal hidden" id="editBiome">
+            <div class="modalBody">
+                <h2>Edit Biome</h2>
+                <p class="message"></p>
+                <p class="formInput">
+                    <input type="hidden" id="biomeID_edit">
+                    <input type="text" id="biomeName_edit">
+                    <label for="biomeName_edit">Biome Name</label>
+                </p>
+
+                <div class="formButtons buttonGroup">
+                    <button id="biomeEdit">Edit Biome</button>
                     <button class="modalClose">Cancel</button>
                 </div>
             </div>

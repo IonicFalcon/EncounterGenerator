@@ -17,4 +17,8 @@ export default class Biome{
     static AddBiome(DB, biomeName){
         DB.run("INSERT INTO Biomes (Name) VALUES (?)", [biomeName]);
     }
+
+    static EditBiome(DB, biomeID, biomeName){
+        DB.run("UPDATE Biomes SET Name = ? WHERE BiomeID = ?", [biomeName, biomeID]);
+    }
 }
