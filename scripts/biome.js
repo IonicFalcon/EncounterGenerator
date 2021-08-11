@@ -25,4 +25,8 @@ export default class Biome{
     static DeleteBiome(DB, biomeID){
         DB.run("DELETE FROM Biomes WHERE BiomeID = ?", [biomeID]);
     }
+
+    static AddEncounter(DB, biomeID, monsterID, weight){
+        DB.run("INSERT INTO BiomeMonsters (BiomeID, MonsterID, Weight) VALUES (?, ?, ?)", [biomeID, monsterID, weight]);
+    }
 }

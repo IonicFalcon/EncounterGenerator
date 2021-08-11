@@ -83,6 +83,39 @@ function resetSelectColumn(isBiome, biomeID = null){
 
             addBiome.classList.remove("hidden");
             addBiome.querySelector(".message").innerHTML = "";
+        } else{
+            let addMonster = document.querySelector("#addMonster");
+
+            addMonster.classList.remove("hidden");
+            addMonster.querySelector(".message").innerHTML = "";
+
+            document.querySelector("#monsterName_add select").classList.remove("hidden");
+            document.querySelector("#monsterName_add input").classList.add("hidden");
+
+            //Get all current possible encounters for selected biome
+            let biomeMonsters = document.querySelectorAll("#biomeMonsters label");
+            biomeMonsters = Array.from(biomeMonsters).map(label => label.innerHTML);
+
+            //If monster already in encounter, don't add it to drop down list
+            let monsters = Monster.GetAllMonsters(window.DB).filter(monster => {
+                return !biomeMonsters.includes(monster.Name);
+            });
+            
+            let monsterSelect = document.querySelector("#monsterName_add select");
+
+            monsterSelect.innerHTML = "";
+            for(const monster of monsters){
+                let option = document.createElement("option");
+
+                option.innerHTML = monster.Name;
+                monsterSelect.appendChild(option);
+            }
+
+            let option = document.createElement("option");
+            option.classList.add("addButton");
+            option.innerHTML = "Add New..."
+
+            monsterSelect.appendChild(option);
         }
     })
 
@@ -141,10 +174,19 @@ $("#back").click(() =>{
     document.querySelector("#dataSource").classList.toggle("hidden");
 })
 
+$("#monsterName_add select").change(event => {
+    if(event.target.selectedOptions[0].classList.contains("addButton")){
+        document.querySelector("#monsterName_add select").classList.add("hidden");
+        document.querySelector("#monsterName_add input").classList.remove("hidden");
+    }
+})
+
 $("#biomeAdd").click(() =>{
-    let biomeName = document.querySelector("#biomeName_add").value;
+    let biomeName = document.querySelector("#biomeName_add").value.trim();
     let message = document.querySelector("#addBiome .message");
     message.innerHTML = "";
+
+    if(biomeName.length == 0) return;
 
     let biomeSelect = document.querySelectorAll("input[name='biome']");
     for(const biome of biomeSelect){
@@ -162,9 +204,11 @@ $("#biomeAdd").click(() =>{
 
 $("#biomeEdit").click(() =>{
     let biomeID = document.querySelector("#biomeID_edit").value;
-    let biomeName = document.querySelector("#biomeName_edit").value;
+    let biomeName = document.querySelector("#biomeName_edit").value.trim();
     let message = document.querySelector("#editBiome .message");
     message.innerHTML = "";
+
+    if (biomeName.length == 0) return;
 
     let biomeSelect = document.querySelectorAll("input[name='biome']");
     for(const biome of biomeSelect){
@@ -190,6 +234,44 @@ $("#biomeDelete").click(() =>{
         message.innerHTML = "Biome was successfully deleted";
         resetSelectColumn(true);
     }
+})
+
+$("#monsterAdd").click(() => {
+    const nameInput = document.querySelector("#monsterName_add input");
+    const nameSelect = document.querySelector("#monsterName_add select");
+    const message = document.querySelector("#addMonster .message");
+    const biomeSelect = document.querySelectorAll("input[name='biome']");
+    const biomeMonsters = Array.from(document.querySelectorAll("#biomeMonsters label")).map(label => label.innerHTML.toLowerCase());
+    const weightInput = document.querySelector("#monsterWeight_add");
+    
+    message.innerHTML = "";
+
+    //Name can be either what they typed in as a new monster OR a pre-existing monster selected from the dropdown
+    let monsterName = nameInput.value.trim() || nameSelect.selectedOptions[0].innerHTML.trim();
+
+    if(biomeMonsters.includes(monsterName.toLowerCase())) {
+        message.innerHTML = "An encounter with this monster already exists";
+        return;
+    }
+    if(weightInput.value == "" || weightInput.value <= 0){
+        message.innerHTML = "An encounter needs a valid numerical weight";
+        return;
+    }
+
+    let monsterID = Monster.GetIDFromName(window.DB, monsterName);
+
+    let monsterWeight = weightInput.value;
+    let biomeID = (() =>{
+        for(const biome of biomeSelect){
+            if(biome.checked) return biome.value;
+        }
+    })();
+
+    Biome.AddEncounter(window.DB, biomeID, monsterID, monsterWeight);
+
+    message.innerHTML = "Encounter successfully added";
+    resetSelectColumn(false, biomeID);
+
 })
 
 

@@ -38,4 +38,23 @@ export default class Monster{
 
         return monsters;
     }
+
+    static GetIDFromName(DB, monsterName){
+        let query = "SELECT MonsterID FROM Monsters WHERE Name LIKE ?";
+        let stmt = DB.prepare(query);
+
+        let ID = stmt.get([monsterName])[0];
+
+        //If ID wasn't returned, must be a new monster
+        if(!ID){
+            Monster.AddMonster(DB, monsterName);
+            return Monster.GetIDFromName(DB, monsterName);
+        }
+
+        return ID;
+    }
+
+    static AddMonster(DB, monsterName){
+        DB.run("INSERT INTO Monsters (Name) VALUES (?)", [monsterName]);
+    }
 }

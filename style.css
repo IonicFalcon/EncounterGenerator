@@ -126,8 +126,7 @@ button, label[for="dataUpload"]{
     text-align: left;
     cursor: pointer;
 }
-
-.editData .columnSelect > ul li.addButton{
+.addButton{
     color: cornflowerblue;
     text-decoration: underline dotted;
 }
