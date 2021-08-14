@@ -29,8 +29,6 @@ async function setup(){
 
 $("#generate").click(() =>{
     let monsters = Monster.GetAllMonsters(window.DB);
-    console.log(monsters);
-
 })
 
 $("#editData").click(() => {
@@ -44,16 +42,16 @@ $("#editData").click(() => {
 $(".modalClose").click(event => event.target.offsetParent.classList.add("hidden"))
 
 function resetSelectColumn(isBiome, biomeID = null){
-    let data = isBiome ? Biome.GetAllBiomes(window.DB) : Monster.GetMonstersFromBiome(window.DB, biomeID);
-    let select = document.querySelector(isBiome ? "#biomes ul" : "#biomeMonsters ul");
+    const data = isBiome ? Biome.GetAllBiomes(window.DB) : Monster.GetMonstersFromBiome(window.DB, biomeID);
+    const select = document.querySelector(isBiome ? "#biomes ul" : "#biomeMonsters ul");
     select.innerHTML = "";
 
     //Just reset monster column without filling it
     if(!isBiome && biomeID == null) return;
 
     for(const record of data){
-        let li = document.createElement("li");
-        let radio = document.createElement("input");
+        const li = document.createElement("li");
+        const radio = document.createElement("input");
 
         radio.type = "radio";
         radio.name = isBiome ? "biome" : "monster";
@@ -63,7 +61,7 @@ function resetSelectColumn(isBiome, biomeID = null){
 
         if (isBiome) radio.addEventListener("change", biomeSelectEvent);
 
-        let label = document.createElement("label");
+        const label = document.createElement("label");
         label.innerHTML = record.Name;
         label.htmlFor = record.Name;
 
@@ -73,18 +71,18 @@ function resetSelectColumn(isBiome, biomeID = null){
         select.appendChild(li);
     }
 
-    let li = document.createElement("li");
+    const li = document.createElement("li");
     li.classList.add("addButton");
     li.innerHTML = "Add New...";
 
     li.addEventListener("click", () => {
         if(isBiome){
-            let addBiome = document.querySelector("#addBiome");
+            const addBiome = document.querySelector("#addBiome");
 
             addBiome.classList.remove("hidden");
             addBiome.querySelector(".message").innerHTML = "";
         } else{
-            let addMonster = document.querySelector("#addMonster");
+            const addMonster = document.querySelector("#addMonster");
 
             addMonster.classList.remove("hidden");
             addMonster.querySelector(".message").innerHTML = "";
@@ -97,21 +95,21 @@ function resetSelectColumn(isBiome, biomeID = null){
             biomeMonsters = Array.from(biomeMonsters).map(label => label.innerHTML);
 
             //If monster already in encounter, don't add it to drop down list
-            let monsters = Monster.GetAllMonsters(window.DB).filter(monster => {
+            const monsters = Monster.GetAllMonsters(window.DB).filter(monster => {
                 return !biomeMonsters.includes(monster.Name);
             });
             
-            let monsterSelect = document.querySelector("#monsterName_add select");
+            const monsterSelect = document.querySelector("#monsterName_add select");
 
             monsterSelect.innerHTML = "";
             for(const monster of monsters){
-                let option = document.createElement("option");
+                const option = document.createElement("option");
 
                 option.innerHTML = monster.Name;
                 monsterSelect.appendChild(option);
             }
 
-            let option = document.createElement("option");
+            const option = document.createElement("option");
             option.classList.add("addButton");
             option.innerHTML = "Add New..."
 
@@ -123,7 +121,7 @@ function resetSelectColumn(isBiome, biomeID = null){
 }
 
 function biomeSelectEvent(event){
-    let biomeID = event.target.value;
+    const biomeID = event.target.value;
     resetSelectColumn(false, biomeID);
 }
 
@@ -172,7 +170,7 @@ $("#deleteBiomeButton").click(event =>{
 $("#editMonsterButton").click(event =>{
     event.preventDefault();
 
-    let monsterSelect = document.querySelectorAll("input[name='monster']");
+    const monsterSelect = document.querySelectorAll("input[name='monster']");
     for(let selectedMonster of monsterSelect){
         if(selectedMonster.checked){
             //Open Modal
@@ -222,13 +220,13 @@ $("#editMonsterButton").click(event =>{
                 //Don't include monsters that are already apart of the biome encounters unless it's the selected monster
                 return monster.MonsterID === selectedMonster.MonsterID || !biomeMonsters.includes(monster.Name);
             }).forEach(monster => {
-                let option = document.createElement("option");
+                const option = document.createElement("option");
                 option.innerHTML = monster.Name;
 
                 monsterNameSelect.appendChild(option);
             })
 
-            let option = document.createElement("option");
+            const option = document.createElement("option");
 
             option.classList.add("addButton");
             option.innerHTML = "Add New...";
@@ -249,7 +247,7 @@ $("#editMonsterButton").click(event =>{
 $("#deleteMonsterButton").click(event => {
     event.preventDefault();
 
-    let monsterSelect = document.querySelectorAll("input[name='monster']");
+    const monsterSelect = document.querySelectorAll("input[name='monster']");
     for(const selectedMonster of monsterSelect){
         if(selectedMonster.checked){
             const deleteModal = document.querySelector("#deleteMonster")
@@ -281,13 +279,13 @@ $("#monsterName_edit select").change(event => {
 })
 
 $("#biomeAdd").click(() =>{
-    let biomeName = document.querySelector("#biomeName_add").value.trim();
-    let message = document.querySelector("#addBiome .message");
+    const biomeName = document.querySelector("#biomeName_add").value.trim();
+    const message = document.querySelector("#addBiome .message");
     message.innerHTML = "";
 
     if(biomeName.length == 0) return;
 
-    let biomeSelect = document.querySelectorAll("input[name='biome']");
+    const biomeSelect = document.querySelectorAll("input[name='biome']");
     for(const biome of biomeSelect){
         if(biome.id == biomeName){
             message.innerHTML = "A biome of this name already exists";
@@ -302,14 +300,14 @@ $("#biomeAdd").click(() =>{
 })
 
 $("#biomeEdit").click(() =>{
-    let biomeID = document.querySelector("#biomeID_edit").value;
-    let biomeName = document.querySelector("#biomeName_edit").value.trim();
-    let message = document.querySelector("#editBiome .message");
+    const biomeID = document.querySelector("#biomeID_edit").value;
+    const biomeName = document.querySelector("#biomeName_edit").value.trim();
+    const message = document.querySelector("#editBiome .message");
     message.innerHTML = "";
 
     if (biomeName.length == 0) return;
 
-    let biomeSelect = document.querySelectorAll("input[name='biome']");
+    const biomeSelect = document.querySelectorAll("input[name='biome']");
     for(const biome of biomeSelect){
         if(biome.id == biomeName){
             message.innerHTML = "A biome of this name already exists";
@@ -325,8 +323,8 @@ $("#biomeEdit").click(() =>{
 
 $("#biomeDelete").click(() =>{
     if(confirm("Really delete biome?")){
-        let biomeID = document.querySelector("#biomeID_delete").value;
-        let message = document.querySelector("#deleteBiome .message");
+        const biomeID = document.querySelector("#biomeID_delete").value;
+        const message = document.querySelector("#deleteBiome .message");
 
         Biome.DeleteBiome(window.DB, biomeID);
 
@@ -346,7 +344,7 @@ $("#monsterAdd").click(() => {
     message.innerHTML = "";
 
     //Name can be either what they typed in as a new monster OR a pre-existing monster selected from the dropdown
-    let monsterName = nameInput.value.trim() || nameSelect.selectedOptions[0].innerHTML.trim();
+    const monsterName = nameInput.value.trim() || nameSelect.selectedOptions[0].innerHTML.trim();
 
     if(biomeMonsters.includes(monsterName.toLowerCase())) {
         message.innerHTML = "An encounter with this monster already exists";
@@ -357,10 +355,10 @@ $("#monsterAdd").click(() => {
         return;
     }
 
-    let monsterID = Monster.GetIDFromName(window.DB, monsterName);
+    const monsterID = Monster.GetIDFromName(window.DB, monsterName);
 
-    let monsterWeight = weightInput.value;
-    let biomeID = (() =>{
+    const monsterWeight = weightInput.value;
+    const biomeID = (() =>{
         for(const biome of biomeSelect){
             if(biome.checked) return biome.value;
         }
@@ -385,7 +383,7 @@ $("#monsterEdit").click(() => {
     message.innerHTML = "";
 
     //Name can be either what they typed in as a new monster OR a pre-existing monster selected from the dropdown
-    let monsterName = (() => {
+    const monsterName = (() => {
         let selectedMonster = nameSelect.selectedOptions[0];
 
         if(selectedMonster.classList.contains("addButton")){
@@ -395,7 +393,7 @@ $("#monsterEdit").click(() => {
         }
     })();
 
-    let originalMonsterName = originalName.value.trim();
+    const originalMonsterName = originalName.value.trim();
 
     if(biomeMonsters.includes(monsterName.toLowerCase()) && originalName.value.trim().toLowerCase() !== monsterName.toLowerCase()){
         message.innerHTML = "An encounter with this monster already exits";
@@ -406,11 +404,11 @@ $("#monsterEdit").click(() => {
         return;
     }
 
-    let originalMonsterID = Monster.GetIDFromName(window.DB, originalMonsterName);
-    let newMonsterID = Monster.GetIDFromName(window.DB, monsterName);
+    const originalMonsterID = Monster.GetIDFromName(window.DB, originalMonsterName);
+    const newMonsterID = Monster.GetIDFromName(window.DB, monsterName);
 
-    let monsterWeight = weightInput.value;
-    let biomeID = (() => {
+    const monsterWeight = weightInput.value;
+    const biomeID = (() => {
         for(const biome of biomeSelect){
             if(biome.checked) return biome.value;
         }
