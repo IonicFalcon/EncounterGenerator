@@ -1,3 +1,5 @@
+import Monster from "./monster.js";
+
 export default class Biome{
     constructor(data){
         this.BiomeID = data[0];
@@ -28,5 +30,16 @@ export default class Biome{
 
     static AddEncounter(DB, biomeID, monsterID, weight){
         DB.run("INSERT INTO BiomeMonsters (BiomeID, MonsterID, Weight) VALUES (?, ?, ?)", [biomeID, monsterID, weight]);
+    }
+
+    static DeleteEncounter(DB, biomeID, monsterID){
+        DB.run("DELETE FROM BiomeMonsters WHERE BiomeID = ? AND MonsterID = ?", [biomeID, monsterID]);
+    }
+
+    static EditEncounter(DB, biomeID, originalMonsterID, newMonsterID, weight){
+        Biome.DeleteEncounter(DB, biomeID, originalMonsterID);
+        Biome.AddEncounter(DB, biomeID, newMonsterID, weight);
+
+        Monster.CleanupMonsters(DB);
     }
 }

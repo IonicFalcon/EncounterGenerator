@@ -62,8 +62,8 @@
                     </ul>
 
                     <div class="formButtons buttonGroup">
-                        <button id="editMonster">Edit</button>
-                        <button id="deleteMonster">Delete</button>
+                        <button id="editMonsterButton">Edit</button>
+                        <button id="deleteMonsterButton">Delete</button>
                     </div>
                 </form>
 
@@ -138,6 +138,29 @@
 
                 <div class="formButtons buttonGroup">
                     <button id="monsterAdd">Add Monster</button>
+                    <button class="modalClose">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal hidden" id="editMonster">
+            <div class="modalBody">
+                <h2>Edit Monster</h2>
+                <p class="message"></p>
+                <input type="hidden" id="monsterID_edit">
+                <input type="hidden" name="" id="monsterName_old">
+                <div class="formInput" id="monsterName_edit">
+                    <select></select>
+                    <input type="text" class="hidden">
+                    <label for="monsterName_edit">Monster Name</label>
+                </div>
+                <div class="formInput">
+                    <input type="number" min="1" id="monsterWeight_edit">
+                    <label for="monsterWeight_edit">Weight</label>
+                </div>
+
+                <div class="formButtons buttonGroup">
+                    <button id="monsterEdit">Edit Monster</button>
                     <button class="modalClose">Cancel</button>
                 </div>
             </div>

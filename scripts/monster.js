@@ -39,6 +39,26 @@ export default class Monster{
         return monsters;
     }
 
+    static GetMonsterFromID(DB, monsterID){
+        let query = "SELECT * FROM Monsters WHERE MonsterID = ?";
+        let stmt = DB.prepare(query);
+
+        let monster = new Monster(stmt.get([monsterID]));
+
+        query = `SELECT b.BiomeID, b.Name, bm.Weight FROM Biomes b, BiomeMonsters bm WHERE bm.BiomeID = b.BiomeID AND bm.MonsterID = ${monster.MonsterID}`;
+        stmt = DB.prepare(query);
+
+        monster.Biomes = [];
+        while (stmt.step()){
+            let data = stmt.get();
+
+            monster.Biomes.push([new Biome(data), data[2]]);
+        }
+
+        return monster;
+    }
+
+
     static GetIDFromName(DB, monsterName){
         let query = "SELECT MonsterID FROM Monsters WHERE Name LIKE ?";
         let stmt = DB.prepare(query);
@@ -56,5 +76,18 @@ export default class Monster{
 
     static AddMonster(DB, monsterName){
         DB.run("INSERT INTO Monsters (Name) VALUES (?)", [monsterName]);
+    }
+
+    static DeleteMonster(DB, ID){
+        DB.run("DELETE FROM Monsters WHERE MonsterID = ?", [ID]);
+    }
+
+    //Monsters don't need to exist if they aren't apart of any biome
+    static CleanupMonsters(DB){
+        Monster.GetAllMonsters(DB).forEach(monster => {
+            if(monster.Biomes.length == 0){
+                Monster.DeleteMonster(DB, monster.MonsterID);
+            }
+        })
     }
 }
