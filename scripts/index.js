@@ -246,6 +246,21 @@ $("#editMonsterButton").click(event =>{
 
 })
 
+$("#deleteMonsterButton").click(event => {
+    event.preventDefault();
+
+    let monsterSelect = document.querySelectorAll("input[name='monster']");
+    for(const selectedMonster of monsterSelect){
+        if(selectedMonster.checked){
+            const deleteModal = document.querySelector("#deleteMonster")
+            deleteModal.classList.remove("hidden");
+            deleteModal.querySelector(".message").innerHTML = "Are you sure you want to delete this encounter?";
+
+            document.querySelector("#monsterID_delete").value = selectedMonster.value;
+        }
+    }
+})
+
 $("#back").click(() =>{
     document.querySelector("#generateForm").classList.toggle("hidden");
     document.querySelector("#dataSource").classList.toggle("hidden");
@@ -407,6 +422,25 @@ $("#monsterEdit").click(() => {
     resetSelectColumn(false, biomeID);
 
     originalName.value = monsterName;
+})
+
+$("#monsterDelete").click(() =>{
+    if(confirm("Really delete encounter?")){
+        const monsterID = document.querySelector("#monsterID_delete").value;
+        const message = document.querySelector("#deleteMonster .message");
+
+        const biomeSelect = document.querySelectorAll("input[name='biome']");
+        const biomeID = (() =>{
+            for(const biome of biomeSelect){
+                if(biome.checked) return biome.value;
+            }
+        })();
+
+        Biome.DeleteEncounter(window.DB, biomeID, monsterID);
+
+        message.innerHTML = "Encounter was successfully deleted";
+        resetSelectColumn(false, biomeID);
+    }
 })
 
 
