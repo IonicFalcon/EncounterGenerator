@@ -34,8 +34,6 @@ export default class Biome{
 
     static DeleteEncounter(DB, biomeID, monsterID){
         DB.run("DELETE FROM BiomeMonsters WHERE BiomeID = ? AND MonsterID = ?", [biomeID, monsterID]);
-
-        Monster.CleanupMonsters(DB);
     }
 
     static EditEncounter(DB, biomeID, originalMonsterID, newMonsterID, weight){
