@@ -302,6 +302,7 @@ $("#biomeAdd").click(() =>{
     Biome.AddBiome(window.DB, biomeName);
 
     message.innerHTML = "Biome was successfully inserted";
+
     resetSelectColumn(true);
 })
 
@@ -324,6 +325,7 @@ $("#biomeEdit").click(() =>{
     Biome.EditBiome(window.DB, biomeID, biomeName);
 
     message.innerHTML = "Biome was successfully updated";
+
     resetSelectColumn(true);
 })
 
@@ -373,7 +375,9 @@ $("#monsterAdd").click(() => {
     Biome.AddEncounter(window.DB, biomeID, monsterID, monsterWeight);
 
     message.innerHTML = "Encounter successfully added";
+
     nameInput.value = "";
+    weightInput.value = "";
     resetSelectColumn(false, biomeID);
 
 });
@@ -425,7 +429,9 @@ $("#monsterEdit").click(() => {
     Monster.CleanupMonsters(window.DB);
 
     message.innerHTML = "Encounter successfully edited";
+
     nameInput.value = "";
+    weightInput.value = "";
     resetSelectColumn(false, biomeID);
 
     originalName.value = monsterName;
