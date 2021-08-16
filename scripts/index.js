@@ -12,23 +12,27 @@ import Biome from "./biome.js";
 
 async function setup(){
     window.DB = await Database.InitalSetup();
+    resetBiomeSelect();
+}
 
-    let biomes = Biome.GetAllBiomes(window.DB);
+function resetBiomeSelect(){
+    const biomes = Biome.GetAllBiomes(window.DB);
+    const biomeSelect = document.querySelector("#biome");
+    biomeSelect.innerHTML = "";
 
-    let biomeSelect = document.querySelector("#biome");
     for(const biome of biomes){
-        let option = document.createElement("option");
-
+        const option = document.createElement("option");
+    
         option.value = biome.BiomeID;
         option.innerHTML = biome.Name;
-
+    
         biomeSelect.appendChild(option);
     }
-    
 }
 
 $("#generate").click(() =>{
     let monsters = Monster.GetAllMonsters(window.DB);
+    console.log(monsters);
 })
 
 $("#editData").click(() => {
@@ -262,6 +266,8 @@ $("#deleteMonsterButton").click(event => {
 $("#back").click(() =>{
     document.querySelector("#generateForm").classList.toggle("hidden");
     document.querySelector("#dataSource").classList.toggle("hidden");
+
+    resetBiomeSelect();
 })
 
 $("#monsterName_add select").change(event => {
@@ -467,9 +473,7 @@ $("#dataUpload").change(async event => {
 });
 
 //TODO:
-// Refresh biome select on main page
 // Main page functionality
-
 
 
 setup();
