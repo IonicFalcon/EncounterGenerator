@@ -1,4 +1,4 @@
-import ConfigureDatabase from "./configureDB.js";
+import Database from "./Database.js";
 import Monster from "./monster.js";
 import Biome from "./biome.js";
 
@@ -11,7 +11,7 @@ import Biome from "./biome.js";
 //6. Comment code!
 
 async function setup(){
-    window.DB = await ConfigureDatabase();
+    window.DB = await Database.InitalSetup();
 
     let biomes = Biome.GetAllBiomes(window.DB);
 
@@ -442,6 +442,33 @@ $("#monsterDelete").click(() =>{
         resetSelectColumn(false, biomeID);
     }
 })
+
+$("#download").click(() =>{
+    const dbArray = window.DB.export();
+    const blob = new Blob([dbArray]);
+    const fileName = "encounters.db";
+    const url = URL.createObjectURL(blob)
+
+    let link = document.createElement("a");
+
+    link.setAttribute("href", url);
+    link.setAttribute("download", fileName);
+
+    link.click();
+})
+
+$("#dataUpload").change(async event => {
+    const dbFile = event.target.files[0];
+    
+    window.DB = await Database.UploadDatabase(dbFile);
+    
+    resetSelectColumn(true);
+    resetSelectColumn(false);
+});
+
+//TODO:
+// Refresh biome select on main page
+// Main page functionality
 
 
 

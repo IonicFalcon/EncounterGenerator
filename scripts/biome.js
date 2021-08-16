@@ -1,5 +1,3 @@
-import Monster from "./monster.js";
-
 export default class Biome{
     constructor(data){
         this.BiomeID = data[0];
