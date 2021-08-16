@@ -1,4 +1,4 @@
-import Database from "./Database.js";
+import Database from "./database.js";
 import Monster from "./monster.js";
 import Biome from "./biome.js";
 
