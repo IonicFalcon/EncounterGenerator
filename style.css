@@ -69,6 +69,7 @@ button, label[for="dataUpload"]{
     display: block;
     margin: 2em;
     font-size: 1.125em;
+    max-width: 20em;
 }
 
 .buttonGroup{

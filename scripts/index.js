@@ -31,8 +31,42 @@ function resetBiomeSelect(){
 }
 
 $("#generate").click(() =>{
-    let monsters = Monster.GetAllMonsters(window.DB);
-    console.log(monsters);
+    const partyVis = document.querySelector("#partyVis").value;
+    const threatLev = document.querySelector("#threatLev").value;
+    const avgLevel = document.querySelector("#avgLevel").value;
+    const biomeID = document.querySelector("#biome").value;
+
+    const biomeMonsters = Monster.GetMonstersFromBiome(window.DB, biomeID);
+
+    let points = partyVis * threatLev;
+    let monsters = [];
+
+    while(points > 0){
+        let monster = biomeMonsters[Math.floor(Math.random() * biomeMonsters.length)];
+
+        do{
+            monster.Level++;
+            points--;
+        } while(Math.random() < 1 - (monster.Level / avgLevel) && points > 0)
+
+        monsters.push(monster);
+    }
+
+    const output = document.querySelector("#output");
+
+    let outputString = "A ";
+    monsters.forEach((monster, i) => {
+        let string = `level ${monster.Level} ${monster.Name}`;
+
+        if(i != monsters.length - 1){
+            string += ", ";
+        }
+
+        outputString += string;
+    })
+
+    outputString += " appears!";
+    output.innerHTML = outputString;
 })
 
 $("#editData").click(() => {
