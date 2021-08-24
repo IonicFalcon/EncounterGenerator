@@ -11,7 +11,12 @@ import Biome from "./biome.js";
 //6. Comment code!
 
 async function setup(){
+    const loadingScreen = document.querySelector(".loading");
+
+    loadingScreen.classList.remove("hidden");
     window.DB = await Database.InitalSetup();
+    loadingScreen.classList.add("hidden");
+    
     resetBiomeSelect();
 }
 
