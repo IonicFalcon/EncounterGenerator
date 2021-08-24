@@ -16,7 +16,7 @@ async function setup(){
     loadingScreen.classList.remove("hidden");
     window.DB = await Database.InitalSetup();
     loadingScreen.classList.add("hidden");
-    
+
     resetBiomeSelect();
 }
 
@@ -512,8 +512,11 @@ $("#download").click(() =>{
 
 $("#dataUpload").change(async event => {
     const dbFile = event.target.files[0];
-    
+    const loadingScreen = document.querySelector(".loading");
+
+    loadingScreen.classList.remove("hidden");
     window.DB = await Database.UploadDatabase(dbFile);
+    loadingScreen.classList.add("hidden");
     
     resetSelectColumn(true);
     resetSelectColumn(false);
