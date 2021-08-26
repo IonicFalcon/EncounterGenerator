@@ -64,16 +64,45 @@ $("#generate").click(() =>{
     let h2 = document.createElement("h2");
     h2.innerHTML = "You encounter:";
 
-    let ul = document.createElement("ul");
-    monsters.forEach(monster => {
-        let li = document.createElement("li");
-        li.innerHTML = `Level ${monster.Level} ${monster.Name}`;
+    let table = document.createElement("table");
+    
+    let thead = document.createElement("thead");
+    let tr = document.createElement("tr");
 
-        ul.appendChild(li);
+    let lvl = document.createElement("th");
+    let name = document.createElement("th");
+
+    lvl.innerHTML = "Level";
+    name.innerHTML = "Monster";
+
+    tr.appendChild(lvl);
+    tr.appendChild(name);
+
+    thead.appendChild(tr);
+
+    table.appendChild(thead);
+
+    let tbody = document.createElement("tbody");
+
+    monsters.forEach(monster => {
+        let row = document.createElement("tr");
+
+        let level = document.createElement("td");
+        let name = document.createElement("td");
+
+        level.innerHTML = monster.Level;
+        name.innerHTML = monster.Name;
+
+        row.appendChild(level);
+        row.appendChild(name);
+
+        tbody.appendChild(row);
     })
 
+    table.appendChild(tbody);
+
     output.appendChild(h2);
-    output.appendChild(ul);
+    output.appendChild(table);
 })
 
 $("#editData").click(() => {

@@ -85,6 +85,29 @@ button, label[for="dataUpload"]{
     margin: 0;
 }
 
+#output table {
+    max-width: 20em;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+#output table th:nth-child(1){
+    width: 33%;
+}
+
+#output table tr *{
+    padding: 0 0.5em;
+
+}
+
+#output table tr *:first-child {
+    text-align: right;
+}
+
+#output table tr *:last-child {
+    text-align: left;
+}
+
 #output li{
     text-align: left;
 }
