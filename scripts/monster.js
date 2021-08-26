@@ -4,7 +4,7 @@ export default class Monster{
     constructor(data){
         this.MonsterID = data[0];
         this.Name = data[1];
-        this.Level = 1;
+        this.Level = 0;
     }
 
     static GetAllMonsters(DB){

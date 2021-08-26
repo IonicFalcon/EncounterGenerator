@@ -3,7 +3,6 @@ import Monster from "./monster.js";
 import Biome from "./biome.js";
 
 //TODO
-//1. Finish regular functionality
 //2. Move event listeners to seperate files
 //3. Combine some verbose functions together
 //4. Somehow add DB object to static parent object for Biome and Monster
@@ -47,7 +46,8 @@ $("#generate").click(() =>{
     let monsters = [];
 
     while(points > 0){
-        let monster = biomeMonsters[Math.floor(Math.random() * biomeMonsters.length)];
+        let id = biomeMonsters[Math.floor(Math.random() * biomeMonsters.length)].MonsterID;
+        let monster = Monster.GetMonsterFromID(window.DB, id);
 
         do{
             monster.Level++;
@@ -59,19 +59,21 @@ $("#generate").click(() =>{
 
     const output = document.querySelector("#output");
 
-    let outputString = "A ";
-    monsters.forEach((monster, i) => {
-        let string = `level ${monster.Level} ${monster.Name}`;
+    output.innerHTML = "";
 
-        if(i != monsters.length - 1){
-            string += ", ";
-        }
+    let h2 = document.createElement("h2");
+    h2.innerHTML = "You encounter:";
 
-        outputString += string;
+    let ul = document.createElement("ul");
+    monsters.forEach(monster => {
+        let li = document.createElement("li");
+        li.innerHTML = `Level ${monster.Level} ${monster.Name}`;
+
+        ul.appendChild(li);
     })
 
-    outputString += " appears!";
-    output.innerHTML = outputString;
+    output.appendChild(h2);
+    output.appendChild(ul);
 })
 
 $("#editData").click(() => {
@@ -521,9 +523,5 @@ $("#dataUpload").change(async event => {
     resetSelectColumn(true);
     resetSelectColumn(false);
 });
-
-//TODO:
-// Main page functionality
-
 
 setup();
