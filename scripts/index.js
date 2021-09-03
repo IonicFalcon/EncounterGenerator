@@ -52,7 +52,9 @@ $("#generate").click(() =>{
         do{
             monster.Level++;
             points--;
-        } while(Math.random() < 1 - (monster.Level / avgLevel) && points > 0)
+
+            // 5% flat change to increase monster level when below party level
+        } while((Math.random() < 0.95 && monster.Level < avgLevel) && points > 0)
 
         monsters.push(monster);
     }

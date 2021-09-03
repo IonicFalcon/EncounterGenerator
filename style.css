@@ -79,11 +79,6 @@ button, label[for="dataUpload"]{
     margin: 0.25em;
 }
 
-#output ul{
-    border: 1px solid black;
-    padding: 1em 2em;
-    margin: 0;
-}
 
 #output table {
     max-width: 20em;
@@ -108,9 +103,6 @@ button, label[for="dataUpload"]{
     text-align: left;
 }
 
-#output li{
-    text-align: left;
-}
 
 .buttonGroup{
     display: flex;
