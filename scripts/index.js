@@ -48,13 +48,14 @@ $("#generate").click(() =>{
     while(points > 0){
         let id = biomeMonsters[Math.floor(Math.random() * biomeMonsters.length)].MonsterID;
         let monster = Monster.GetMonsterFromID(window.DB, id);
+        
+        // 5% flat change to increase monster level when below party level
+        const percentChance = 0.05
 
         do{
             monster.Level++;
             points--;
-
-            // 5% flat change to increase monster level when below party level
-        } while((Math.random() < 0.95 && monster.Level < avgLevel) && points > 0)
+        } while((Math.random() < (1 - percentChance) && monster.Level < avgLevel) && points > 0)
 
         monsters.push(monster);
     }
