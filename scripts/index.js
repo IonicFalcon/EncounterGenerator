@@ -40,13 +40,14 @@ $("#generate").click(() =>{
     const avgLevel = document.querySelector("#avgLevel").value;
     const biomeID = document.querySelector("#biome").value;
 
-    const biomeMonsters = Monster.GetMonstersFromBiome(window.DB, biomeID);
+    const biomeMonsters = Monster.GetWeightedMonsters(window.DB, biomeID);
+    console.log(biomeMonsters);
 
     let points = partyVis * threatLev;
     let monsters = [];
 
     while(points > 0){
-        let id = biomeMonsters[Math.floor(Math.random() * biomeMonsters.length)].MonsterID;
+        let id = biomeMonsters[Math.floor(Math.random() * biomeMonsters.length)];
         let monster = Monster.GetMonsterFromID(window.DB, id);
         
         // 5% flat change to increase monster level when below party level

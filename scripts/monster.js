@@ -21,6 +21,23 @@ export default class Monster{
         return Monster.GetMonsters(stmt, DB);
     }
 
+    static GetWeightedMonsters(DB, biomeID){
+        let monsters = Monster.GetMonstersFromBiome(DB, biomeID);
+        let weightedMonsters = [];
+
+        for(const monster of monsters){
+            for(const biome of monster.Biomes){
+                if(biome[0].BiomeID == biomeID){
+                    for(let i = 0; i < biome[1]; i++){
+                        weightedMonsters.push(monster.MonsterID);
+                    }
+                }
+            }
+        }
+
+        return weightedMonsters;
+    }
+
     static GetMonsters(stmt, DB){
         let monsters = [];
         while(stmt.step()) monsters.push(new Monster(stmt.get()));
