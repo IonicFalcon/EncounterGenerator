@@ -3,14 +3,21 @@
 }
 
 body{
-    background-color: lightgrey;
     font-family: 'Courier New', Courier, monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     font-size: 1.2em;
+    margin: 0;
+}
 
+.columns{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    max-height: 530px;
+}
+
+.columns > *{
+    border:  1px solid black;
+    padding: 1em;
 }
 
 .hidden{
@@ -22,9 +29,20 @@ h1{
 }
 
 .root{
+    background-color: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+}
+
+main{
     background-color: white;
     padding: 3em;
     border-radius: 2em;
+    flex-grow: 1;
+    max-width: 70%;
 }
 
 form{
@@ -33,16 +51,18 @@ form{
 
 .formInput{
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column-reverse;
     justify-content: flex-end;
-    align-items: center;
+    align-items: left;
 }
 
 .formInput label{
     flex-basis: 30%;
     flex-shrink: 0;
-    text-align: right;
+    text-align: left;
     margin-right: 1em;
+    font-size: 0.9em;
+    padding-bottom: 0.25em
 }
 
 .formInput :not(label){
@@ -50,6 +70,10 @@ form{
     height: fit-content;
     font-size: 0.8em;
     padding: 5px;
+}
+
+.columns .formInput :not(label) {
+    width: revert;
 }
 
 button, label[for="dataUpload"]{
@@ -66,10 +90,9 @@ button, label[for="dataUpload"]{
 }
 
 #output{
-    max-width: 20em;
-    
+    flex-basis: 30em;
     padding: 1em;
-    margin: 1em auto;
+    overflow-y: scroll;
 }
 
 #output h2{

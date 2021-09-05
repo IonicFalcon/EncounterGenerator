@@ -15,181 +15,188 @@
 
     </div>
     <div class="root">
-        <h1>Encounter Generator</h1>
-
-        <form onsubmit="return false" class="" id="generateForm">
-            <p class="formInput">
-                <input type="number" name="partyVis" id="partyVis" min="1" value="1">
-                <label for="partyVis">Party Visability</label>
-            </p>
+        <main>
+            <h1>Encounter Generator</h1>
     
-            <p class="formInput">
-                <input type="number" name="threatLev" id="threatLev" min="1" value="1" step="0.1">
-                <label for="threatLev">Threat Level</label>
-            </p>
-
-            <p class="formInput">
-                <input type="number" name="avgLevel" id="avgLevel" min="1" value="1">
-                <label for="avgLevel">Average Party Level</label>
-            </p>
-    
-            <p class="formInput">
-                <select name="biome" id="biome">
+            <div class="columns">
+                <form onsubmit="return false" class="" id="generateForm">
+                    <p class="formInput">
+                        <input type="number" name="partyVis" id="partyVis" min="1" value="1">
+                        <label for="partyVis">Party Visability</label>
+                    </p>
+            
+                    <p class="formInput">
+                        <input type="number" name="threatLev" id="threatLev" min="1" value="1" step="0.1">
+                        <label for="threatLev">Threat Level</label>
+                    </p>
+        
+                    <p class="formInput">
+                        <input type="number" name="avgLevel" id="avgLevel" min="1" value="1">
+                        <label for="avgLevel">Average Party Level</label>
+                    </p>
+            
+                    <p class="formInput">
+                        <select name="biome" id="biome">
+                            
+                        </select>
+                        <label for="biome">Biome</label>
+                    </p>
+            
                     
-                </select>
-                <label for="biome">Biome</label>
-            </p>
+                    <div class="buttonGroup">
+                        <button id="generate">Generate</button>
+                        <button id="editData">Edit Data Source</button>
+                    </div>
+                </form>
+        
+                <div id="output">
+        
+                </div>
+            </div>
     
-            <div id="output">
-
-            </div>
-
-            <div class="buttonGroup">
-                <button id="generate">Generate</button>
-                <button id="editData">Edit Data Source</button>
-            </div>
-        </form>
-
-        <div class="hidden" id="dataSource">
-            <div class="editData">
-                <form id="biomes" class="columnSelect">
-                    <h2>Biomes</h2>
-                    <ul>
-                        
-                    </ul>
-
-                    <div class="formButtons buttonGroup">
-                        <button id="editBiomeButton">Edit</button>
-                        <button id="deleteBiomeButton">Delete</button>
+    
+            <div class="hidden" id="dataSource">
+                <div class="editData">
+                    <form id="biomes" class="columnSelect">
+                        <h2>Biomes</h2>
+                        <ul>
+                            
+                        </ul>
+    
+                        <div class="formButtons buttonGroup">
+                            <button id="editBiomeButton">Edit</button>
+                            <button id="deleteBiomeButton">Delete</button>
+                        </div>
+                    </form>
+    
+                    <div class="arrow">
+                        <i class="fas fa-arrow-right"></i>
                     </div>
-                </form>
-
-                <div class="arrow">
-                    <i class="fas fa-arrow-right"></i>
+    
+                    <form id="biomeMonsters" class="columnSelect">
+                        <h2>Possible Encounters</h2>
+                        <ul>
+                        </ul>
+    
+                        <div class="formButtons buttonGroup">
+                            <button id="editMonsterButton">Edit</button>
+                            <button id="deleteMonsterButton">Delete</button>
+                        </div>
+                    </form>
+    
                 </div>
-
-                <form id="biomeMonsters" class="columnSelect">
-                    <h2>Possible Encounters</h2>
-                    <ul>
-                    </ul>
-
+                <div class="buttonGroup">
+                    <label for="dataUpload">Upload Database</label>
+                    <input type="file" name="dataUpload" id="dataUpload">
+                    <button id="download">Download Database</button>
+                    <button id="back">Back</button>
+                </div>
+            </div>
+    
+            <div class="modal hidden" id="addBiome">
+                <div class="modalBody">
+                    <h2>Add Biome</h2>
+                    <p class="message"></p>
+                    <p class="formInput">
+                        <input type="text" id="biomeName_add">
+                        <label for="biomeName_add">Biome Name</label>
+                    </p>
+    
                     <div class="formButtons buttonGroup">
-                        <button id="editMonsterButton">Edit</button>
-                        <button id="deleteMonsterButton">Delete</button>
+                        <button id="biomeAdd">Add Biome</button>
+                        <button class="modalClose">Cancel</button>
                     </div>
-                </form>
-
-            </div>
-            <div class="buttonGroup">
-                <label for="dataUpload">Upload Database</label>
-                <input type="file" name="dataUpload" id="dataUpload">
-                <button id="download">Download Database</button>
-                <button id="back">Back</button>
-            </div>
-        </div>
-
-        <div class="modal hidden" id="addBiome">
-            <div class="modalBody">
-                <h2>Add Biome</h2>
-                <p class="message"></p>
-                <p class="formInput">
-                    <input type="text" id="biomeName_add">
-                    <label for="biomeName_add">Biome Name</label>
-                </p>
-
-                <div class="formButtons buttonGroup">
-                    <button id="biomeAdd">Add Biome</button>
-                    <button class="modalClose">Cancel</button>
                 </div>
             </div>
-        </div>
-
-        <div class="modal hidden" id="editBiome">
-            <div class="modalBody">
-                <h2>Edit Biome</h2>
-                <p class="message"></p>
-                <p class="formInput">
-                    <input type="hidden" id="biomeID_edit">
-                    <input type="text" id="biomeName_edit">
-                    <label for="biomeName_edit">Biome Name</label>
-                </p>
-
-                <div class="formButtons buttonGroup">
-                    <button id="biomeEdit">Edit Biome</button>
-                    <button class="modalClose">Cancel</button>
+    
+            <div class="modal hidden" id="editBiome">
+                <div class="modalBody">
+                    <h2>Edit Biome</h2>
+                    <p class="message"></p>
+                    <p class="formInput">
+                        <input type="hidden" id="biomeID_edit">
+                        <input type="text" id="biomeName_edit">
+                        <label for="biomeName_edit">Biome Name</label>
+                    </p>
+    
+                    <div class="formButtons buttonGroup">
+                        <button id="biomeEdit">Edit Biome</button>
+                        <button class="modalClose">Cancel</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="modal hidden" id="deleteBiome">
-            <div class="modalBody">
-                <h2>Delete Biome</h2>
-                <p class="message"></p>
-                <input type="hidden" id="biomeID_delete">
-
-                <div class="formButtons buttonGroup">
-                    <button id="biomeDelete">Delete Biome</button>
-                    <button class="modalClose">Cancel</button>
+    
+            <div class="modal hidden" id="deleteBiome">
+                <div class="modalBody">
+                    <h2>Delete Biome</h2>
+                    <p class="message"></p>
+                    <input type="hidden" id="biomeID_delete">
+    
+                    <div class="formButtons buttonGroup">
+                        <button id="biomeDelete">Delete Biome</button>
+                        <button class="modalClose">Cancel</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="modal hidden" id="addMonster">
-            <div class="modalBody">
-                <h2>Add Encounter</h2>
-                <p class="message"></p>
-                <p class="formInput" id="monsterName_add">
-                    <select></select>
-                    <input type="text" class="hidden">
-                    <label for="monsterName_add">Monster Name</label>
-                </p>
-                <p class="formInput">
-                    <input type="number" id="monsterWeight_add" min="1">
-                    <label for="monsterWeight_add">Weight</label>
-                </p>
-
-                <div class="formButtons buttonGroup">
-                    <button id="monsterAdd">Add Encounter</button>
-                    <button class="modalClose">Cancel</button>
+    
+            <div class="modal hidden" id="addMonster">
+                <div class="modalBody">
+                    <h2>Add Encounter</h2>
+                    <p class="message"></p>
+                    <p class="formInput" id="monsterName_add">
+                        <select></select>
+                        <input type="text" class="hidden">
+                        <label for="monsterName_add">Monster Name</label>
+                    </p>
+                    <p class="formInput">
+                        <input type="number" id="monsterWeight_add" min="1">
+                        <label for="monsterWeight_add">Weight</label>
+                    </p>
+    
+                    <div class="formButtons buttonGroup">
+                        <button id="monsterAdd">Add Encounter</button>
+                        <button class="modalClose">Cancel</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="modal hidden" id="editMonster">
-            <div class="modalBody">
-                <h2>Edit Encounter</h2>
-                <p class="message"></p>
-                <input type="hidden" id="monsterID_edit">
-                <input type="hidden" name="" id="monsterName_old">
-                <div class="formInput" id="monsterName_edit">
-                    <select></select>
-                    <input type="text" class="hidden">
-                    <label for="monsterName_edit">Monster Name</label>
-                </div>
-                <div class="formInput">
-                    <input type="number" min="1" id="monsterWeight_edit">
-                    <label for="monsterWeight_edit">Weight</label>
-                </div>
-
-                <div class="formButtons buttonGroup">
-                    <button id="monsterEdit">Edit Encounter</button>
-                    <button class="modalClose">Cancel</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal hidden" id="deleteMonster">
-            <div class="modalBody">
-                <h2>Delete Encounter</h2>
-                <p class="message"></p>
-                <input type="hidden" id="monsterID_delete">
-                
-                <div class="formButtons buttonGroup">
-                    <button id="monsterDelete">Delete Encounter</button>
-                    <button class="modalClose">Cancel</button>
+    
+            <div class="modal hidden" id="editMonster">
+                <div class="modalBody">
+                    <h2>Edit Encounter</h2>
+                    <p class="message"></p>
+                    <input type="hidden" id="monsterID_edit">
+                    <input type="hidden" name="" id="monsterName_old">
+                    <div class="formInput" id="monsterName_edit">
+                        <select></select>
+                        <input type="text" class="hidden">
+                        <label for="monsterName_edit">Monster Name</label>
+                    </div>
+                    <div class="formInput">
+                        <input type="number" min="1" id="monsterWeight_edit">
+                        <label for="monsterWeight_edit">Weight</label>
+                    </div>
+    
+                    <div class="formButtons buttonGroup">
+                        <button id="monsterEdit">Edit Encounter</button>
+                        <button class="modalClose">Cancel</button>
+                    </div>
                 </div>
             </div>
-        </div>
+    
+            <div class="modal hidden" id="deleteMonster">
+                <div class="modalBody">
+                    <h2>Delete Encounter</h2>
+                    <p class="message"></p>
+                    <input type="hidden" id="monsterID_delete">
+                    
+                    <div class="formButtons buttonGroup">
+                        <button id="monsterDelete">Delete Encounter</button>
+                        <button class="modalClose">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.5.0/sql-wasm.js"></script>
