@@ -111,6 +111,8 @@ $("#generate").click(() =>{
 $("#editData").click(() => {
     document.querySelector("#generateForm").classList.toggle("hidden");
     document.querySelector("#dataSource").classList.toggle("hidden");
+    document.querySelector("#output").classList.toggle("hidden");
+    document.querySelector("main").style.flexGrow = 0;
 
     resetSelectColumn(true);
     resetSelectColumn(false);
@@ -339,6 +341,8 @@ $("#deleteMonsterButton").click(event => {
 $("#back").click(() =>{
     document.querySelector("#generateForm").classList.toggle("hidden");
     document.querySelector("#dataSource").classList.toggle("hidden");
+    document.querySelector("#output").classList.toggle("hidden");
+    document.querySelector("main").style.flexGrow = 1;
 
     resetBiomeSelect();
 })
