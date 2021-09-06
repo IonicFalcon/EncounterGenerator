@@ -13,6 +13,7 @@ body{
     flex-direction: row;
     gap: 1em;
     max-height: 530px;
+    justify-content: center;
 }
 
 .columns > *{
